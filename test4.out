@@ -1,0 +1,6 @@
+=====  answer report  =====
+CPU run time: 3.26
+Mem Usage: 2020
+Word ladder number: 1
+word ladder length: 14
+ans[0]: HELL -> PELL -> PEEL -> PEEN -> PEON -> AEON -> ANON -> CANON -> CANTON -> CANTOR -> CANTER -> WANTER -> WANDER -> WONDER

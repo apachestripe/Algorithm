@@ -1,0 +1,7 @@
+=====  answer report  =====
+CPU run time: 0.01
+Mem Usage: 1788
+Word ladder number: 2
+word ladder length: 4
+ans[0]: CAN -> CAT -> NAT -> NOT
+ans[1]: CAN -> NAN -> NAT -> NOT

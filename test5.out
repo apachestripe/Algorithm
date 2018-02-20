@@ -1,0 +1,6 @@
+=====  answer report  =====
+CPU run time: 18.78
+Mem Usage: 2336
+Word ladder number: 1
+word ladder length: 7
+ans[0]: EASY -> EASE -> EALE -> EARLE -> HARLE -> HARL -> HARD

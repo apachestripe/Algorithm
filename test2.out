@@ -1,0 +1,6 @@
+=====  answer report  =====
+CPU run time: 0.11
+Mem Usage: 1788
+Word ladder number: 1
+word ladder length: 11
+ans[0]: SCORE -> SCARE -> SEARE -> SERRE -> SERGE -> VERGE -> VENGE -> VENAE -> VENAL -> VINAL -> FINAL
