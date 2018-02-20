@@ -29,10 +29,8 @@ vector< vector<string> > findLadders(string beginWord, string endWord, vector<st
 	int index=0;
 	while(index < wordDictionary.size()){
 		for(int repeatIndex = index + 1 ; repeatIndex < wordDictionary.size() ; repeatIndex ++)
-			if(wordDictionary[index] == wordDictionary[repeatIndex]){
-				wordDictionary.erase(wordDictionary.begin() + index);
-				break;
-			}
+			if(wordDictionary[index] == wordDictionary[repeatIndex])
+				wordDictionary.erase(wordDictionary.begin() + repeatIndex);
 		if(isLegal(beginWord,wordDictionary[index])){
     			vector<string> newLadder;
     			newLadder.push_back(beginWord);
@@ -45,23 +43,27 @@ vector< vector<string> > findLadders(string beginWord, string endWord, vector<st
 	}
 	int stopIndex = wordDictionary.size() - 1;
 	index = 0;
-	vector<int> checkedLadder(wordDictionary.size(), 0);
+	vector<int> checkedLadder(wordDictionary.size() + 1, 0);
 	int minLength = 2147483647;
 	while(index != stopIndex){
 		bool findLadder = false;
-		int ladderNumber = checkedLadder[index];
+		int ladderNumber = checkedLadder[index + 1];
 		while(ladderNumber < ans.size()){
-			if(ans[ladderNumber].size() > minLength){
+			if(ans[ladderNumber].size() < minLength - 1 && isLegal(ans[ladderNumber].back(), wordDictionary[index])){
+				vector<string> newLadder;
+	    			for(int copyIndex = 0 ; copyIndex < ans[ladderNumber].size() ; copyIndex++)
+	    				newLadder.push_back(ans[ladderNumber][copyIndex]);
+	    			newLadder.push_back(wordDictionary[index]);
+	    			ans.push_back(newLadder);
+	    			findLadder=true;
+			}
+			ladderNumber++;
+		}
+		ladderNumber = checkedLadder[0];
+		while(ladderNumber < ans.size()){
+			if(ans[ladderNumber].size() > minLength || (ans[ladderNumber].size() == minLength && !isLegal(ans[ladderNumber].back(),endWord))){
 				ans.erase(ans.begin() + ladderNumber);
 				continue;
-			}
-			else if(isLegal(ans[ladderNumber].back(), wordDictionary[index])){
-				vector<string> newLadder;
-	    		for(int copyIndex = 0 ; copyIndex < ans[ladderNumber].size() ; copyIndex++)
-	    			newLadder.push_back(ans[ladderNumber][copyIndex]);
-	    		newLadder.push_back(wordDictionary[index]);
-	    		ans.push_back(newLadder);
-	    		findLadder=true;
 			}
 			else if(isLegal(ans[ladderNumber].back(), endWord))
 				minLength = ans[ladderNumber].size();
@@ -70,13 +72,14 @@ vector< vector<string> > findLadders(string beginWord, string endWord, vector<st
 		if(findLadder){
 		  	storeDictionary.push_back(wordDictionary[index]);
 	 		wordDictionary.erase(wordDictionary.begin() + index);
-			checkedLadder.erase(checkedLadder.begin() + index);
+			checkedLadder.erase(checkedLadder.begin() + index + 1);
 	    		stopIndex = index == 0 ? wordDictionary.size() - 1 : index - 1;
 	    		//cout<<ans.size()<<" "<<worddictionary.size()<<endl;
 	        }
 	    	else
-			checkedLadder[index] = ans.size();
+			checkedLadder[index + 1] = ans.size();
 		index = index < wordDictionary.size() - 1 ? index + 1 : 0;
+		checkedLadder[0] = ans.size();
     	}
     	/*
     	cout<<minlength<<endl;
